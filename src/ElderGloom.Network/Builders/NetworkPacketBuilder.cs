@@ -1,4 +1,6 @@
-using ElderGloom.Network.Interfaces;
+using System.Reflection;
+using ElderGloom.Network.Attributes;
+
 using ElderGloom.Network.Packets.Base;
 using ElderGloom.Network.Types;
 using ElderGloom.Network.Utils;
@@ -11,7 +13,7 @@ public class NetworkPacketBuilder
 {
     private MessageType _messageType;
 
-    private IMessagePayload _payload;
+    private object _payload;
 
     private bool _isCompressed;
     private bool _isEncrypted;
@@ -35,10 +37,10 @@ public class NetworkPacketBuilder
     }
 
 
-    public NetworkPacketBuilder WithPayload<TEntity>(TEntity payload) where TEntity : IMessagePayload
+    public NetworkPacketBuilder WithPayload<TEntity>(TEntity payload) where TEntity : class
     {
         _payload = payload;
-        _messageType = payload.MessageType;
+        _messageType = payload.GetType().GetCustomAttribute<MessageTypeAttribute>().MessageType;
 
         return this;
     }

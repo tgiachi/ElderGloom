@@ -7,7 +7,7 @@ namespace ElderGloom.Core.Tests;
 public class PacketTests
 {
     [Fact]
-    public void Builder_Test()
+    public void PacketBuilderCreatePacket()
     {
         var packet = NetworkPacketBuilder.Create()
             .WithCompression()

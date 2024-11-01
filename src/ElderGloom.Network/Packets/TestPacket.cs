@@ -1,13 +1,13 @@
-using ElderGloom.Network.Interfaces;
+using ElderGloom.Network.Attributes;
+
 using ElderGloom.Network.Types;
 using MemoryPack;
 
 namespace ElderGloom.Network.Packets;
 
 [MemoryPackable]
-public partial class TestPacket : IMessagePayload
+[MessageType(MessageType.Ping)]
+public partial class TestPacket
 {
-    public MessageType MessageType => MessageType.Ping;
-
     public DateTime Timestamp { get; set; }
 }
