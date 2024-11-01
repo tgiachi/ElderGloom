@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/ElderGloom.Core/ElderGloom.Core.csproj" />
+  <Project Path="src\ElderGloom.Network\ElderGloom.Network.csproj" Type="Classic C#" />
+  <Project Path="src\ElderGloom.Server\ElderGloom.Server\ElderGloom.Server.csproj" Type="Classic C#" />
+  <Project Path="tests\ElderGloom.Core.Tests\ElderGloom.Core.Tests.csproj" Type="Classic C#" />
+</Solution>
