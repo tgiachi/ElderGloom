@@ -1,6 +1,6 @@
 namespace ElderGloom.Core.Tests;
 
-public class UnitTest1
+public class PacketTests
 {
     [Fact]
     public void Test1()

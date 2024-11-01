@@ -1,16 +1,9 @@
 namespace ElderGloom.Network.Types;
 
-public enum PacketType
+[Flags]
+public enum PacketType : byte
 {
-    PlayerConnect,
-    PlayerDisconnect,
-
-    WorldState,
-    PlayerPosition,
-    PlayerAction,
-
-    ChatMessage,
-
-    Ping,
-    Heartbeat
+    None,
+    Encrypted,
+    Compressed,
 }
