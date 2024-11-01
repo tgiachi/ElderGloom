@@ -4,6 +4,7 @@ using ElderGloom.Network.Interfaces;
 using ElderGloom.Network.Packet;
 using ElderGloom.Network.Types;
 using ElderGloom.Network.Utils;
+using Serilog;
 
 namespace ElderGloom.Network.Builders;
 
@@ -47,9 +48,15 @@ public class NetworkPacketBuilder
 
     public NetworkPacket Build()
     {
+        var logger = Log.Logger.ForContext<NetworkPacketBuilder>();
+
         var packetType = PacketType.None;
 
         var payload = Encoding.UTF8.GetBytes(_payload.ToJson());
+
+        logger.Debug("Building packet with type {MessageType} and payload {Payload}", _messageType, _payload);
+
+        logger.Debug("Total bytes {Bytes}", payload.Length);
 
 
         if (_isEncrypted)
@@ -57,6 +64,8 @@ public class NetworkPacketBuilder
             packetType |= PacketType.Encrypted;
 
             payload = CryptoHelper.Encrypt(payload, _encryptionKey);
+
+            logger.Debug("Encrypted bytes {Bytes}", payload.Length);
         }
 
         if (_isCompressed)
@@ -64,7 +73,11 @@ public class NetworkPacketBuilder
             packetType |= PacketType.Compressed;
 
             payload = CompressionHelper.Compress(payload);
+
+            logger.Debug("Compressed bytes {Bytes}", payload.Length);
         }
+
+        logger.Debug("Final bytes {Bytes}", payload.Length);
 
         return new NetworkPacket(packetType, _messageType, payload);
     }
