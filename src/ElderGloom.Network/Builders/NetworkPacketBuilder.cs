@@ -1,9 +1,8 @@
-using System.Text;
-using ElderGloom.Core.Extensions;
 using ElderGloom.Network.Interfaces;
 using ElderGloom.Network.Packet;
 using ElderGloom.Network.Types;
 using ElderGloom.Network.Utils;
+using MemoryPack;
 using Serilog;
 
 namespace ElderGloom.Network.Builders;
@@ -34,15 +33,11 @@ public class NetworkPacketBuilder
     }
 
 
-    public NetworkPacketBuilder WithMessageType(MessageType messageType)
-    {
-        _messageType = messageType;
-        return this;
-    }
-
     public NetworkPacketBuilder WithPayload<TEntity>(TEntity payload) where TEntity : IMessagePayload
     {
         _payload = payload;
+        _messageType = payload.MessageType;
+
         return this;
     }
 
@@ -52,7 +47,7 @@ public class NetworkPacketBuilder
 
         var packetType = PacketType.None;
 
-        var payload = Encoding.UTF8.GetBytes(_payload.ToJson());
+        var payload = MemoryPackSerializer.Serialize(_payload);
 
         logger.Debug("Building packet with type {MessageType} and payload {Payload}", _messageType, _payload);
 
