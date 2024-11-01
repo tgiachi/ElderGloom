@@ -1,5 +1,5 @@
 using ElderGloom.Network.Interfaces;
-using ElderGloom.Network.Packet;
+using ElderGloom.Network.Packets.Base;
 using ElderGloom.Network.Types;
 using ElderGloom.Network.Utils;
 using MemoryPack;
@@ -13,10 +13,12 @@ public class NetworkPacketBuilder
 
     private IMessagePayload _payload;
 
-    public bool _isCompressed;
-    public bool _isEncrypted;
+    private bool _isCompressed;
+    private bool _isEncrypted;
 
-    public byte[] _encryptionKey;
+    private byte[] _encryptionKey;
+
+    public static NetworkPacketBuilder Create() => new();
 
 
     public NetworkPacketBuilder WithEncryptionKey(byte[] encryptionKey)

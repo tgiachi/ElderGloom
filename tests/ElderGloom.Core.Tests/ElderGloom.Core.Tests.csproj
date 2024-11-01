@@ -26,4 +26,9 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\ElderGloom.Core\ElderGloom.Core.csproj" />
+      <ProjectReference Include="..\..\src\ElderGloom.Network\ElderGloom.Network.csproj" />
+    </ItemGroup>
+
 </Project>

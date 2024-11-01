@@ -1,8 +1,12 @@
+using ElderGloom.Network.Packets;
 using ElderGloom.Network.Types;
+using MemoryPack;
 
 namespace ElderGloom.Network.Interfaces;
 
-public interface IMessagePayload
+[MemoryPackable]
+[MemoryPackUnion(0, typeof(TestPacket))]
+public partial interface IMessagePayload
 {
     MessageType MessageType { get; }
 }
